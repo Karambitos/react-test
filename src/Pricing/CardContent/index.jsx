@@ -1,20 +1,21 @@
 import React from 'react';
-import styles from './Slider.module.css';
+import styles from './CardContent.module.css'
+const CardContent = ({content}) => {
 
-const Card = ({ slides, currentSlide }) => {
-  return (
-    <div className={styles.slider} date-index={currentSlide}>
-      {slides.map((slide, index) => (
-        <div key={index} 
-          className={`${styles.slide} ${index === currentSlide ? styles.active : ''}`} 
-          date-index={index} 
-        >
-          <img src={slide.image} alt={`Slide ${index + 1}`} />
-          <p>{slide.caption}</p>
-        </div>
-      ))}
-    </div>
-  );
+    const renderContent = (content) => {
+        return (
+            <ul>
+                {content.map((item, index) => (
+                    <li key={index}>
+                        {Array.isArray(item) ? renderContent(item) : item}
+                    </li>
+                ))}
+            </ul>
+        );
+    };
+
+    return <div className={styles.cardContent}>{renderContent(content)}</div>;
 };
 
-export default Slider;
+export default CardContent;
+

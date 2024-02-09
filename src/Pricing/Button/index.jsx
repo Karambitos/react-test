@@ -1,15 +1,11 @@
 import React from 'react';
-import CardHeader from "../CardHeader";
-import CardContent from "../CardContent";
 
-const Card = ({ slides, currentSlide }) => {
-  return (
-      <div className="">
-        <CardHeader/>
-        <CardContent/>
-        <button>Start</button>
-      </div>
-  );
+
+const Button = ({ children }) => {
+    return (
+        <button>{children}</button>
+    );
 };
 
-export default Card;
+export default Button;
+

@@ -1,20 +1,13 @@
 import React from 'react';
-import styles from './Slider.module.css';
 
-const Card = ({ slides, currentSlide }) => {
+const CardHeader = ({name, description, price}) => {
   return (
-    <div className={styles.slider} date-index={currentSlide}>
-      {slides.map((slide, index) => (
-        <div key={index} 
-          className={`${styles.slide} ${index === currentSlide ? styles.active : ''}`} 
-          date-index={index} 
-        >
-          <img src={slide.image} alt={`Slide ${index + 1}`} />
-          <p>{slide.caption}</p>
-        </div>
-      ))}
-    </div>
+      <div style={{border: '1px solid red', borderRadius: '5px'}}>
+        <h2>{name}</h2>
+        <p>{description}</p>
+        <p>{price}</p>
+      </div>
   );
 };
 
-export default Slider;
+export default CardHeader;

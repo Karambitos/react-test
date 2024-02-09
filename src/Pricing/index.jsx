@@ -1,68 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { getUsers } from '../../api';
+import React, {useState} from "react";
+import jsonData from './content.json'
+import Card from "./Card";
 
-const UserLoader = () => {
-  const [users, setUsers] = useState([]);
-  const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+const Pricing = () => {
 
-  const load = async () => {
-    setIsLoading(true);
-    try {
-      const results = await getUsers({ page: currentPage });
-      setUsers(results);
-    } catch (error) {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    load();
-  }, [currentPage]);
-
-  const handleChangePage = (isNext) => {
-    if (isNext) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    } else {
-      setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
-    }
-  };
-
-  if (isLoading) {
-    return <h1>LOADING USERS ...</h1>;
-  }
-
-  if (isError) {
-    return <h1>ERROR HAPPENED</h1>;
-  }
-
-  const userCards = users.map(
-    ({
-      name: { first, last },
-      picture: { thumbnail: src },
-      login: { uuid },
-    }) => (
-      <article key={uuid}>
-        <h2>
-          {first} {last}
-        </h2>
-        <img src={src} alt={`${first} ${last}`} />
-      </article>
-    )
-  );
+  const [data, setData] = useState(jsonData.packages);
 
   return (
-    <div>
-      <div>
-        <button onClick={() => handleChangePage(false)}>Prev</button>
-        <button onClick={() => handleChangePage(true)}>Next</button>
+      <div style={{display: "flex",  gap: 20, padding: 20}}>
+        {data.map((card, index) => (
+            <Card
+                key={index}
+                name={card.name}
+                description={card.description}
+                price={card.price}
+                content={card.content}
+            />
+        ))}
       </div>
-      {userCards}
-    </div>
-  );
-};
+    )
+}
 
-export default UserLoader;
+export default Pricing;
+
+
